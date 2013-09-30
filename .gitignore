@@ -1,0 +1,8 @@
+build
+build-*
+*.pyc
+__pycache__
+Nark.egg-info
+py
+build
+dist
