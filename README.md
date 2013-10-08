@@ -23,3 +23,9 @@ Use cmake.
     cd cleap/build
     cmake ..
     make
+
+For windows you may want to use cmake-gui to generate a build file.
+
+Notice that because the original leap DLL is built with visual studio
+you must build libcleap with visual studio or visual studio express (free)
+too.
