@@ -13,7 +13,24 @@ binding for that.
 
 ### Quick start
 
-See tests/test.py
+    c = leap_controller()
+    l = leap_listener(500)
+    leap_add_listener(c, l)
+
+    try:
+      while True:
+        event = leap_poll_listener(l)
+        if event:
+          if any(e.frame.hands):
+            print(e.frame.hands[0])
+    except: 
+      pass
+
+    leap_remove_listener(c, l)
+    leap_listener_dispose(l)
+    leap_controller_dispose(c)
+
+See tests/test.py for a complete example.
 
 ### Compiling libcleap
 
