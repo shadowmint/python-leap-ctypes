@@ -7,6 +7,13 @@
 #define LEAP_ON_FOCUS_GAINED 0x0006
 #define LEAP_ON_FOCUS_LOST 0x0007
 
+// Exporter
+#ifdef WIN32
+#define C_SYMBOL __declspec( dllexport ) 
+#else
+#define C_SYMBOL
+#endif
+
 // Public C api
 extern "C" 
 {
@@ -73,29 +80,29 @@ extern "C"
 
 
   // Create a controller reference
-  struct leap_controller *leap_controller();
+  C_SYMBOL struct leap_controller *leap_controller();
 
   // Enable background tracking on a controller
-  void leap_enable_background(struct leap_controller *controller);
+  C_SYMBOL void leap_enable_background(struct leap_controller *controller);
 
   // Destroy controller
-  void leap_controller_dispose(struct leap_controller *controller);
+  C_SYMBOL void leap_controller_dispose(struct leap_controller *controller);
 
   // Create a listener
   // At most the most recent 'size' pending events will be stored.
-  struct leap_listener *leap_listener(int size);
+  C_SYMBOL struct leap_listener *leap_listener(int size);
 
   // Destroy a listener
-  void leap_listener_dispose(struct leap_listener *listener);
+  C_SYMBOL void leap_listener_dispose(struct leap_listener *listener);
 
   // Start listening on a listener
-  void leap_add_listener(struct leap_controller *controller, struct leap_listener *listener);
+  C_SYMBOL void leap_add_listener(struct leap_controller *controller, struct leap_listener *listener);
 
   // Stop listening on a listener
-  void leap_remove_listener(struct leap_controller *controller, struct leap_listener *listener);
+  C_SYMBOL void leap_remove_listener(struct leap_controller *controller, struct leap_listener *listener);
 
   // Poll for a events on a listener.
   // Returns NULL if no events are waiting.
   // The returned object will be valid until the next leap_poll_listener() call.
-  struct leap_event *leap_poll_listener(struct leap_listener *listener);
+  C_SYMBOL struct leap_event *leap_poll_listener(struct leap_listener *listener);
 }

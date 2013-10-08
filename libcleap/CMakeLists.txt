@@ -19,6 +19,10 @@ project (CLEAP)
 if (APPLE)
   set(LEAP ${CMAKE_CURRENT_SOURCE_DIR}/bin/libLeap.dylib)
 endif()
+if (WIN32) 
+  # For 64-bit builds, change this from x86 to x64
+  set(LEAP ${CMAKE_CURRENT_SOURCE_DIR}/bin/win/x86/Leap.lib)
+endif()
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)

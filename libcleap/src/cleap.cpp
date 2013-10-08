@@ -44,6 +44,9 @@ void leap_listener_consume_oldest(struct leap_listener *listener);
 // Resolve circular offsets
 int leap_listener_resolve(struct leap_listener *listener, int offset);
 
+// Random numbers
+int leap_random(void);
+
 void CleapListener::onInit(const Controller& controller) {
   leap_listener_event(this->listener, LEAP_ON_INIT);
 }
@@ -87,12 +90,12 @@ void CleapListener::convertVector(Vector &src, struct leap_vector *target) {
 
 void CleapListener::convertFake(struct leap_event *event) {
   struct leap_frame *frame = &event->frame;
-  frame->id = random();
+  frame->id = leap_random();
   frame->timestamp = (long) time(NULL);
-  frame->hand_count = random() % 3;
+  frame->hand_count = leap_random() % 3;
   int i;
   for (i = 0; i < frame->hand_count; i++) {
-    frame->hands[i].finger_count = random() % 6;
+    frame->hands[i].finger_count = leap_random() % 6;
   }
 }
 
@@ -263,7 +266,7 @@ struct leap_event *leap_poll_listener(struct leap_listener *listener) {
   int i; // Create random events in debug mode.
   Controller controller;
   CleapListener *impl = (CleapListener *) listener->data;
-  if ((listener->event_count == 0) && (random() % 2 == 0)) {
+  if ((listener->event_count == 0) && (leap_random() % 2 == 0)) {
     for (i = 0; i < 150; i++) {
       impl->onFrame(controller);
     }
@@ -280,4 +283,12 @@ struct leap_event *leap_poll_listener(struct leap_listener *listener) {
 
 void leap_event_dispose(struct leap_event *event) {
   CleapListener *impl = (CleapListener *) event->listener->data;
+}
+
+int leap_random(void) {
+#ifdef WIN32
+  return rand();
+#else
+  return random();
+#endif
 }

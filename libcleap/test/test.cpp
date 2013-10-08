@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <cleap.h>
 #ifdef WIN32
 #include <windows.h>
+#endif
+#ifndef WIN32
+#include <unistd.h>
 #endif
 
 void sleep_(int ms) {
