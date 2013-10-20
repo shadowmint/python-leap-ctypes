@@ -1,4 +1,5 @@
-import _os
+from __future__ import absolute_import
+from . import _os
 import os
 import ctypes
 from os.path import join
